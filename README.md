@@ -1,2 +1,3 @@
 # the-illusion
-early movie theaters were sometimes called "Illusion" or "The Illusion" in various countries, particularly in Europe. 
+
+Early movie theaters were sometimes called "Illusion" or "The Illusion" in various countries, particularly in Europe. 
