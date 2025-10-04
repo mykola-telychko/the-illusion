@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Список фільмів</title>
+  <title>Ілюзіон</title>
   <style>
     body {
       margin: 0;
@@ -24,7 +24,7 @@
     }
 
     .search-bar {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
@@ -37,7 +37,24 @@
       border: none;
       outline: none;
       font-size: 1rem;
-      min-width: 180px;
+      min-width: 150px;
+    }
+
+    .reset-btn {
+      background: linear-gradient(135deg, #6b73ff, #000dff, #9a00ff);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 12px rgba(155, 100, 255, 0.4);
+    }
+
+    .reset-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 18px rgba(155, 100, 255, 0.7);
     }
 
     .movie-list {
@@ -73,7 +90,7 @@
   </style>
 </head>
 <body>
-  <h1>The iLLusion</h1>
+  <h1>ІЛЮЗІОН</h1>
   <div class="search-bar">
     <input type="text" id="searchInput" placeholder="Пошук за назвою...">
     <select id="genreFilter">
@@ -83,30 +100,50 @@
       <option value="фантастика">Фантастика</option>
       <option value="комедія">Комедія</option>
     </select>
+    <select id="typeFilter">
+      <option value="">Усі типи</option>
+      <option value="фільм">Фільм</option>
+      <option value="серіал">Серіал</option>
+      <option value="мультфільм">Мультфільм</option>
+    </select>
+    <select id="countryFilter">
+      <option value="">Усі країни</option>
+      <option value="США">США</option>
+      <option value="Велика Британія">Велика Британія</option>
+      <option value="Україна">Україна</option>
+      <option value="Франція">Франція</option>
+      <option value="Японія">Японія</option>
+    </select>
+    <button class="reset-btn" id="resetBtn">Скинути фільтри</button>
   </div>
 
   <div class="movie-list" id="movieList"></div>
 
   <script>
     const movies = [
-      { name: 'Інтерстеллар', genre: 'фантастика', year: 2014 },
-      { name: 'Темний лицар', genre: 'бойовик', year: 2008 },
-      { name: 'Руйнівник', genre: 'бойовик', year: 2008 },
-      { name: 'Форрест Гамп', genre: 'драма', year: 1994 },
-      { name: 'Початок', genre: 'фантастика', year: 2010 },
-      { name: 'Маска', genre: 'комедія', year: 1994 },
-      { name: 'Гладіатор', genre: 'драма', year: 2000 }
+      { name: 'Інтерстеллар', genre: 'фантастика', year: 2014, type: 'фільм', country: 'США' },
+      { name: 'Темний лицар', genre: 'бойовик', year: 2008, type: 'фільм', country: 'США' },
+      { name: 'Форрест Гамп', genre: 'драма', year: 1994, type: 'фільм', country: 'США' },
+      { name: 'Початок', genre: 'фантастика', year: 2010, type: 'фільм', country: 'Велика Британія' },
+      { name: 'Маска', genre: 'комедія', year: 1994, type: 'фільм', country: 'США' },
+      { name: 'Гладіатор', genre: 'драма', year: 2000, type: 'фільм', country: 'Велика Британія' },
+      { name: 'Гра престолів', genre: 'фантастика', year: 2011, type: 'серіал', country: 'Велика Британія' },
+      { name: 'Рік і Морті', genre: 'комедія', year: 2013, type: 'мультфільм', country: 'США' },
+      { name: 'Мавка. Лісова пісня', genre: 'фантастика', year: 2023, type: 'мультфільм', country: 'Україна' }
     ];
 
     const movieList = document.getElementById('movieList');
     const searchInput = document.getElementById('searchInput');
     const genreFilter = document.getElementById('genreFilter');
+    const typeFilter = document.getElementById('typeFilter');
+    const countryFilter = document.getElementById('countryFilter');
+    const resetBtn = document.getElementById('resetBtn');
 
     function renderMovies(list) {
       movieList.innerHTML = list.map(movie => `
         <div class="movie">
           <h2>${movie.name}</h2>
-          <p>${movie.genre} • ${movie.year}</p>
+          <p>${movie.genre} • ${movie.year} • ${movie.type} • ${movie.country}</p>
         </div>
       `).join('');
     }
@@ -114,19 +151,42 @@
     function filterMovies() {
       const searchTerm = searchInput.value.toLowerCase();
       const genre = genreFilter.value;
+      const type = typeFilter.value;
+      const country = countryFilter.value;
 
       const filtered = movies.filter(m =>
         m.name.toLowerCase().includes(searchTerm) &&
-        (genre === '' || m.genre === genre)
+        (genre === '' || m.genre === genre) &&
+        (type === '' || m.type === type) &&
+        (country === '' || m.country === country)
       );
 
       renderMovies(filtered);
     }
 
+    function resetFilters() {
+      searchInput.value = '';
+      genreFilter.value = '';
+      typeFilter.value = '';
+      countryFilter.value = '';
+      renderMovies(movies);
+    }
+
     searchInput.addEventListener('input', filterMovies);
     genreFilter.addEventListener('change', filterMovies);
+    typeFilter.addEventListener('change', filterMovies);
+    countryFilter.addEventListener('change', filterMovies);
+    resetBtn.addEventListener('click', resetFilters);
 
     renderMovies(movies);
+    
+    document.getElementById('resetButton').addEventListener('click', () => {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('genreFilter').value = 'all';
+  document.getElementById('typeFilter').value = 'all';
+  document.getElementById('countryFilter').value = 'all';
+  displayMovies(movies);
+});
   </script>
 </body>
 </html>
