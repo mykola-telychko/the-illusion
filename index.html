@@ -19,7 +19,7 @@
 
     h1 {
       font-size: 2rem;
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
       text-align: center;
     }
 
@@ -113,6 +113,7 @@
       <option value="Україна">Україна</option>
       <option value="Франція">Франція</option>
       <option value="Японія">Японія</option>
+      <option value="Японія">Німеччина</option>
     </select>
     <button class="reset-btn" id="resetBtn">Скинути фільтри</button>
   </div>
@@ -121,15 +122,21 @@
 
   <script>
     const movies = [
+      { name: 'Вабанк', genre: 'кримінал комедія', year: 1981, type: 'фільм', country: 'Польща' },
+      { name: 'Вабанк 2', genre: 'кримінал комедія', year: 1986, type: 'фільм', country: 'Польща' },
+
       { name: 'Інтерстеллар', genre: 'фантастика', year: 2014, type: 'фільм', country: 'США' },
       { name: 'Темний лицар', genre: 'бойовик', year: 2008, type: 'фільм', country: 'США' },
       { name: 'Форрест Гамп', genre: 'драма', year: 1994, type: 'фільм', country: 'США' },
       { name: 'Початок', genre: 'фантастика', year: 2010, type: 'фільм', country: 'Велика Британія' },
       { name: 'Маска', genre: 'комедія', year: 1994, type: 'фільм', country: 'США' },
-      { name: 'Гладіатор', genre: 'драма', year: 2000, type: 'фільм', country: 'Велика Британія' },
+      { name: 'Лютер', genre: 'драма детектив', year: 2009, type: 'серіал', country: 'Велика Британія' },
+      { name: 'Кульгаві коні', genre: 'драма детектив', year: 2009, type: 'серіал', country: 'Велика Британія' },
       { name: 'Гра престолів', genre: 'фантастика', year: 2011, type: 'серіал', country: 'Велика Британія' },
       { name: 'Рік і Морті', genre: 'комедія', year: 2013, type: 'мультфільм', country: 'США' },
+
       { name: 'Мавка. Лісова пісня', genre: 'фантастика', year: 2023, type: 'мультфільм', country: 'Україна' },
+      { name: '17 миттєвостей весни', genre: 'драма', year: 1973, type: 'серіал', country: 'Україна' },
 
       { name: 'Ми легенди', genre: 'комедія', year: 2023, type: 'фільм', country: 'Франція' },
       { name: 'Заміж на два дні', genre: 'комедія', year: 2023, type: 'фільм', country: 'Франція' },
@@ -139,6 +146,12 @@
       { name: 'Малют / Ma Loute', genre: 'комедія', year: 2016, type: 'фільм', country: 'Франція' },
 
       { name: 'Співай 1-2', genre: 'комедія', year: 2020, type: 'мультфільм', country: 'США' },
+
+      { name: 'Босоніж по бруківці', genre: 'комедія', year: 2016, type: 'фільм', country: 'Німеччина' },
+      { name: 'Життя інших', genre: 'драма', year: 2006, type: 'фільм', country: 'Німеччина' },
+      { name: 'Достукатися до небес', genre: 'драма', year: 1997, type: 'фільм', country: 'Німеччина' },
+
+
     ];
 
     const movieList = document.getElementById('movieList');
